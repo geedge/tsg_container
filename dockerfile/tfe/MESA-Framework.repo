@@ -1,0 +1,56 @@
+# CentOS-Base.repo
+#
+# The mirror system uses the connecting IP address of the client and the
+# update status of each mirror to pick mirrors that are updated to and
+# geographically close to the client.  You should use this for CentOS updates
+# unless you are manually picking other mirrors.
+#
+# If the mirrorlist= does not work for you, as a fall back you can try the 
+# remarked out baseurl= line instead.
+#
+#
+
+#[MESA_framework]
+#name=MESA_framework
+#baseurl=ftp://192.168.41.182/pub/framework
+#gpgcheck=0
+
+[framework]
+name=framework
+baseurl=https://repo.geedge.net/pulp/content/7/x86_64/stable/framework/
+enabled=1
+gpgcheck=0
+username=liuxueli
+password=LXL@repo
+
+[platform]
+name=platform
+baseurl=https://repo.geedge.net/pulp/content/7/x86_64/stable/platform/
+enabled=1
+gpgcheck=0
+username=liuxueli
+password=LXL@repo
+
+[protocol]
+name=protocol
+baseurl=https://repo.geedge.net/pulp/content/7/x86_64/stable/protocol/
+enabled=1
+gpgcheck=0
+username=liuxueli
+password=LXL@repo
+
+[tsg]
+name=tsg
+baseurl=https://repo.geedge.net/pulp/content/7/x86_64/stable/tsg/
+enabled=1
+gpgcheck=0
+username=liuxueli
+password=LXL@repo
+
+[AppSketch]
+name=AppSketch
+baseurl=https://repo.geedge.net/pulp/content/7/x86_64/stable/AppSketch/
+enabled=1
+gpgcheck=0
+username=liuxueli
+password=LXL@repo
