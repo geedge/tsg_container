@@ -1,28 +1,20 @@
-version: '2.2'
+version: '3.5'
 services:
-  badssl_server:
-    image: "centos7:sappInstalled"
-    container_name: "sapp"
-#    security_opt:
-#     - seccomp:unconfined
-    privileged: true
+  firewall:
+    build:
+      context: ./dockerfile/firewall
+      dockerfile: Dockerfile
+    image: "centos7:firewallInstalled"
+    container_name: "firewall"
+    security_opt:
+     - seccomp:unconfined
     volumes:
      - ./config/mrzcpd/etc/mrapp.sapp4.conf:/opt/mrzcpd/etc/mrapp.sapp4.conf
      - ./config/mrzcpd/etc/mrapm.conf:/opt/mrzcpd/etc/mrapm.conf
      - ./config/mrzcpd/etc/mrglobal.conf:/opt/mrzcpd/etc/mrglobal.conf
-#     - ./config/etc/tmpfiles.d/sapp_tmpfile.conf:/etc/tmpfiles.d/sapp_tmpfile.conf
      - ./config/sapp_run/etc/sapp.toml:/home/mesasoft/sapp_run/etc/sapp.toml
-     - ./config/sapp_run/etc/project_list.conf:/home/mesasoft/sapp_run/etc/project_list.conf
-     - ./config/sapp_run/etc/sapp_log.conf:/home/mesasoft/sapp_run/etc/sapp_log.conf:rw
-     - ./config/sapp_run/etc/kni/kni.conf:/home/mesasoft/sapp_run/etc/kni/kni.conf
+     - ./config/sapp_run/etc/sapp_log.conf:/home/mesasoft/sapp_run/etc/sapp_log.conf
      - ./config/sapp_run/tsgconf/main.conf:/home/mesasoft/sapp_run/tsgconf/main.conf
      - ./config/sapp_run/tsgconf/maat.conf:/home/mesasoft/sapp_run/tsgconf/maat.conf
      - ./config/sapp_run/conf/capture_packet_plug.conf:/home/mesasoft/sapp_run/conf/capture_packet_plug.conf
-     - ./config/sapp_run/tsgconf/app_l7_proto_id.conf:/home/mesasoft/sapp_run/tsgconf/app_l7_proto_id.conf
-     - ./config/sapp_run/plug/business/tsg_conn_sketch/tsg_conn_sketch.inf:/home/mesasoft/sapp_run/plug/business/tsg_conn_sketch/tsg_conn_sketch.inf
-     - ./config/sapp_run/plug/conflist.inf:/home/mesasoft/sapp_run/plug/conflist.inf
-     - ./config/sapp_run/etc/entrylist.conf:/home/mesasoft/sapp_run/etc/entrylist.conf
-#     - ./config/framework/framework.conf:/etc/ld.so.conf.d/framework.conf
      - /etc/localtime:/etc/localtime:ro
-#    command: >
-#      bash -c "ldconfig && tail -f /dev/null"

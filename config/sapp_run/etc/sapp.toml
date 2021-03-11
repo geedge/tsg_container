@@ -1,0 +1,145 @@
+###################################################################################################
+# NOTE:
+#    The format of this file is toml (https://github.com/cktan/tomlc99)
+#    to make vim editor display colorful easier to read, 
+#    you can create a symbolic links named sapp.ini to sapp.toml, ln -sf sapp.toml sapp.ini
+###################################################################################################
+
+[SYSTEM]
+instance_name = "sapp_v4.0"
+
+[CPU]
+worker_threads=4
+### note, bind_mask, if you do not want to bind thread to special CPU core, keep it empty as []
+bind_mask=[1,2,3,4]
+[MEM]
+dictator_enable=1
+
+[PACKET_IO]
+    [overlay_tunnel_definition]
+    l2_l3_tunnel_support=1
+    [packet_io.feature]
+    inbound_route_dir=1
+#inject_mode_inline_device_sport=54789
+### note, depolyment.mode options: [mirror, inline, transparent, dumpfile]
+  [packet_io.depolyment]
+  mode=mirror
+
+### note, interface.type options: [pag,pcap,marsio]
+  [packet_io.internal.interface]
+  type=pcap
+  name=eth0
+
+  [packet_io.external.interface]
+  type=pcap
+  name=eth0
+
+[STREAM]
+### note, stream_id_base_time format is "%Y-%m-%d %H:%M:%S" 
+stream_id_base_time="2018-08-08 08:08:08"
+    [stream.tcp]
+max=10000
+timeout=60
+syn_mandatory=1
+reorder_pkt_max=50
+    analyse_option_enabled=1
+tuple4_reuse_time_interval=10
+
+meaningful_statistics_minimum_pkt=3
+meaningful_statistics_minimum_byte=5
+    
+        [stream.tcp.inject]
+        link_mss=1460
+	  
+        [stream.tcp.inject.rst]
+auto_remedy=0
+number=1
+        signature_enabled=1
+        signature_seed1=65535
+        signature_seed2=13
+        remedy_kill_tcp_by_inline_device=0
+	
+    [stream.udp]
+max=10000
+timeout=30
+meaningful_statistics_minimum_pkt=3
+meaningful_statistics_minimum_byte=5
+    
+
+[PROFILING]
+[profiling.pkt_latency]
+enabled=0
+### note, threshold unit is microseconds (us)
+    threshold=1000000
+	
+    [profiling.sanity_check]
+    raw_pkt_broken_enabled=0
+    symbol_conflict_enabled=0
+  
+    [profiling.log]
+    level=30
+    interval=5
+    
+        [profiling.log.local]
+enabled=1
+### note, if "file_truncate_open_enabled=1", file will be truncated, otherwise open the file for appending.	 
+        file_truncate_enabled = 1
+        log_file_name = "fs2_sysinfo.log"
+        log_conf_name = "etc/sapp_log.conf"
+     
+        [profiling.log.remote]
+enabled=0
+        server_ip="192.168.11.90"
+        server_port=8126
+
+        [profiling.log.remote.field_stat2]
+### note, is valid when "remote_send_out_type=field_stat2"	 
+### note, metric_type option value: [default, json]
+        metric_type = default
+        app_name=sapp
+
+		[profiling.log.prometheus]
+		prometheus_enabled=1
+        prometheus_port=9273
+        prometheus_url_path="/metrics"
+     
+[TOOLS]
+[tools.pkt_dump]
+enabled=1
+### note, mode options value:[storage, udp_socket]
+mode=udp_socket
+    BSD_packet_filter=""
+   
+        [tools.pkt_dump.threads]
+### note, if you want enable pkt dump in all thread, set dump_thread_all_enabled=1, then 'dump_thread_id' is obsoleted.
+###       if dump_thread_all_enabled=0, then use dump_thread_id to specify separate specified thread index.
+        all_threads_enabled=1
+   
+### note, dump_thread_id start from 0, max is CPU.worker_threads-1
+        dump_thread_id=[0,1,2,3,4]
+   
+        [tools.pkt_dump.udp]
+        command_port=12345
+
+        [tools.pkt_dump.storage]
+### note, file path must be double quotation mark extension, for example,  path="/dev/shm/pkt_dump"
+        path="/dev/shm/pkt_dump"
+### note, file size unit: MB
+        file_size_max_per_thread=10000 
+
+### note:
+### These configurations format is complex and difficult to describe with toml grammar,
+### so, create a Independent config file to description specific information.
+[SPECIAL_CONFIG_LINK]	 
+    project_list_path="./etc/project_list.conf"
+    plugin_path="./etc/plugin.conf"
+    entrylist_path="./etc/entrylist.conf"
+    send_raw_pkt_path="./etc/send_raw_pkt.conf"
+    vxlan_sport_service_map_path="./etc/vxlan_sport_service_map.conf"
+
+[breakpad]
+    disable_coredump=0
+    enable_breakpad=0
+    breakpad_minidump_dir="/tmp/crashreport"
+    enable_breakpad_upload=0
+    breakpad_upload_url="http://127.0.0.1/"
