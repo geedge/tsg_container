@@ -1,9 +1,22 @@
 FROM docker.io/centos:7
 
+COPY mrzcpd-debug-4.3.30.cee158a-1.el7.x86_64.rpm /run/
+COPY mrzcpd-debug-debuginfo-4.3.30.cee158a-1.el7.x86_64.rpm /run/
+
 COPY MESA-Framework.repo /etc/yum.repos.d/
 COPY framework.conf  aws.conf /etc/ld.so.conf.d/
-#COPY aws.conf /etc/ld.so.conf.d/
 COPY supervisord.conf /etc/
+COPY usvhost_create.sh /tmp/
+
+RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' \
+        -e 's|^#baseurl=http://mirror.centos.org|baseurl=https://mirrors.tuna.tsinghua.edu.cn|g' \
+        -i.bak /etc/yum.repos.d/CentOS-*.repo
+
+RUN yum install libpcap numactl systemd-libs -y && \
+    yum localinstall -y /run/mrzcpd-debug-4.3.30.cee158a-1.el7.x86_64.rpm && \
+    yum localinstall -y /run/mrzcpd-debug-debuginfo-4.3.30.cee158a-1.el7.x86_64.rpm
+
+RUN mkdir -p /var/run/mrzcpd/
 
 RUN yum makecache \
   && yum install -y \
@@ -22,7 +35,6 @@ RUN yum makecache \
   libWiredLB \
   lz4 \
   libbreakpad_mini \
-  mrzcpd \
   sapp \
   tcpdump_mesa \
   tsg_master \

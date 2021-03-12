@@ -4,13 +4,13 @@ services:
     build:
       context: ./dockerfile/firewall
       dockerfile: Dockerfile
-    image: "centos7:firewallInstalled"
-    container_name: "firewall"
+    image: "tsg-firewall-v21.03"
+    container_name: "tsg-container-firewall-v21.03"
     security_opt:
      - seccomp:unconfined
     volumes:
-     - ./config/mrzcpd/etc/mrapp.sapp4.conf:/opt/mrzcpd/etc/mrapp.sapp4.conf
-     - ./config/mrzcpd/etc/mrapm.conf:/opt/mrzcpd/etc/mrapm.conf
+     - /dev/hugepages:/dev/hugepages
+     - /tmp/vhost_tsg_container_firewall:/run/usvhost/
      - ./config/mrzcpd/etc/mrglobal.conf:/opt/mrzcpd/etc/mrglobal.conf
      - ./config/sapp_run/etc/sapp.toml:/home/mesasoft/sapp_run/etc/sapp.toml
      - ./config/sapp_run/etc/sapp_log.conf:/home/mesasoft/sapp_run/etc/sapp_log.conf

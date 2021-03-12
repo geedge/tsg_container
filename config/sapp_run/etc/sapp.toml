@@ -11,7 +11,7 @@ instance_name = "sapp_v4.0"
 [CPU]
 worker_threads=4
 ### note, bind_mask, if you do not want to bind thread to special CPU core, keep it empty as []
-bind_mask=[1,2,3,4]
+bind_mask=[5,6,7,8]
 [MEM]
 dictator_enable=1
 
@@ -23,12 +23,12 @@ dictator_enable=1
 #inject_mode_inline_device_sport=54789
 ### note, depolyment.mode options: [mirror, inline, transparent, dumpfile]
   [packet_io.depolyment]
-  mode=mirror
+  mode=inline
 
 ### note, interface.type options: [pag,pcap,marsio]
   [packet_io.internal.interface]
-  type=pcap
-  name=eth0
+  type=marsio
+  name=virtio_user0
 
   [packet_io.external.interface]
   type=pcap
