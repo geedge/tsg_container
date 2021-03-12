@@ -18,3 +18,23 @@ services:
      - ./config/sapp_run/tsgconf/maat.conf:/home/mesasoft/sapp_run/tsgconf/maat.conf
      - ./config/sapp_run/conf/capture_packet_plug.conf:/home/mesasoft/sapp_run/conf/capture_packet_plug.conf
      - /etc/localtime:/etc/localtime:ro
+  tfe:
+    build:
+      context: ./dockerfile/tfe
+      dockerfile: Dockerfile
+    image: "tfe-v4.4"
+    container_name: "tfe-container-v4.4"
+    security_opt:
+     - seccomp:unconfined
+    cap_add:
+     - NET_ADMIN
+     - SYS_PTRACE
+    devices:
+     - "/dev/net/tun:/dev/net/tun"
+    volumes:
+     - ./config/tfe/doh/doh.conf:/opt/tsg/tfe/conf/doh/doh.conf
+     - ./config/tfe/pangu/pangu_pxy.conf:/opt/tsg/tfe/conf/pangu/pangu_pxy.conf
+     - ./config/tfe/tfe/future.conf:/opt/tsg/tfe/conf/tfe/future.conf
+     - ./config/tfe/tfe/tfe.conf:/opt/tsg/tfe/conf/tfe/tfe.conf
+     - ./config/tfe/tfe/zlog.conf:/opt/tsg/tfe/conf/tfe/zlog.conf
+     - /etc/localtime:/etc/localtime:ro
