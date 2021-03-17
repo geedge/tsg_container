@@ -9,11 +9,12 @@ services:
     security_opt:
      - seccomp:unconfined
     volumes:
-     - /dev/hugepages:/dev/hugepages
+     - /mnt/huge_1G:/mnt/huge_1G
      - /tmp/vhost_tsg_container_firewall:/run/usvhost/
      - ./config/mrzcpd/etc/mrglobal.conf:/opt/mrzcpd/etc/mrglobal.conf
      - ./config/sapp_run/etc/sapp.toml:/home/mesasoft/sapp_run/etc/sapp.toml
      - ./config/sapp_run/etc/sapp_log.conf:/home/mesasoft/sapp_run/etc/sapp_log.conf
+     - ./config/sapp_run/etc/gdev.conf:/home/mesasoft/sapp_run/etc/gdev.conf
      - ./config/sapp_run/tsgconf/main.conf:/home/mesasoft/sapp_run/tsgconf/main.conf
      - ./config/sapp_run/tsgconf/maat.conf:/home/mesasoft/sapp_run/tsgconf/maat.conf
      - ./config/sapp_run/conf/capture_packet_plug.conf:/home/mesasoft/sapp_run/conf/capture_packet_plug.conf

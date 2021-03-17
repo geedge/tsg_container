@@ -18,6 +18,13 @@ dictator_enable=1
 [PACKET_IO]
     [overlay_tunnel_definition]
     l2_l3_tunnel_support=1
+    overlay_mode=vxlan
+    stream_compare_layer_cfg_file="etc/stream_compare_layer.conf"
+    vlan_flipping_cfg_file="etc/vlan_flipping_map.conf"
+    asymmetric_presence_layer_cfg_file="etc/asymmetric_presence_layer.conf"
+    asymmetric_addr_layer_cfg_file="etc/asymmetric_addr_layer.conf"
+    prune_inject_layer_cfg_file="etc/prune_inject_layer.conf"
+
     [packet_io.feature]
     inbound_route_dir=1
 #inject_mode_inline_device_sport=54789
