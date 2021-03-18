@@ -1,0 +1,72 @@
+{
+    "compile_table": "TSG_SECURITY_COMPILE",
+    "group_table": "GROUP_COMPILE_RELATION",
+    "rules": [
+	{
+            "compile_id": 6,
+            "service": 0,
+            "action": 2,
+            "do_blacklist": 0,
+            "do_log": 1,
+            "effective_rage": 0,
+            "user_region": "anything",
+            "is_valid": "yes",
+            "groups": [
+	    	    {
+                    "group_name": "HOST",
+                    "virtual_table":"TSG_FIELD_HTTP_HOST",
+                    "not_flag" : 0,
+                    "regions": [
+                        {
+                            "table_name": "TSG_OBJ_FQDN",
+                            "table_type": "expr",
+                            "table_content": {
+                                "keywords": "geedge.net",
+                                "expr_type": "none",
+                                "match_method": "suffix",
+                                "format": "uncase plain"
+                            }
+                        }
+		    	        
+                    ]
+                }
+            ] 
+        },
+        {
+            "compile_id": 7,
+            "service": 0,
+            "action": 2,
+            "do_blacklist": 0,
+            "do_log": 1,
+            "effective_rage": 0,
+            "user_region": "anything",
+            "is_valid": "yes",
+            "groups": [
+	    	    {
+                    "group_name": "IP_ADDR_2",
+                    "virtual_table":"TSG_SECURITY_SOURCE_ADDR",
+                    "regions": [
+                        {
+                            "table_name": "TSG_OBJ_IP_ADDR",
+                            "table_type": "ip_plus",
+                            "table_content": {
+                                "addr_type": "ipv4",
+                                "src_ip": "192.168.50.37",
+                                "mask_src_ip": "255.255.255.255",
+                                "src_port": "0",
+                                "mask_src_port": "65535",
+                                "dst_ip": "0.0.0.0",
+                                "mask_dst_ip": "255.255.255.255",
+                                "dst_port": "0",
+                                "mask_dst_port": "65535",
+                                "protocol": 6,
+                                "direction": "double"
+                            }
+                        }
+                    ]
+                }
+            ] 
+        }
+    ]
+}
+

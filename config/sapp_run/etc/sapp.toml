@@ -10,8 +10,9 @@ instance_name = "sapp_v4.0"
 
 [CPU]
 worker_threads=4
+send_only_threads_max=1
 ### note, bind_mask, if you do not want to bind thread to special CPU core, keep it empty as []
-bind_mask=[5,6,7,8]
+bind_mask=[5,6,7,8,9]
 [MEM]
 dictator_enable=1
 
@@ -27,6 +28,14 @@ dictator_enable=1
 
     [packet_io.feature]
     inbound_route_dir=1
+    BSD_packet_filter=""
+    pcap_capture_direction="in"
+    inject_pkt_mode=raw_ethernet_single_gateway
+    inject_mode_inline_device_sport=54789
+    inject_mode_single_gateway_device=tap0
+    inject_mode_single_gateway_src_mac=00:11:22:33:44:55
+    inject_mode_single_gateway_dst_mac=00:11:22:33:44:66
+ 
 #inject_mode_inline_device_sport=54789
 ### note, depolyment.mode options: [mirror, inline, transparent, dumpfile]
   [packet_io.depolyment]
@@ -35,11 +44,25 @@ dictator_enable=1
 ### note, interface.type options: [pag,pcap,marsio]
   [packet_io.internal.interface]
   type=marsio
-  name=virtio_user0
+  name="virtio_user0"
 
   [packet_io.external.interface]
   type=pcap
-  name=eth0
+  name="tap_sapp"
+
+
+[packet_io.polling]
+  enabled=1
+  polling_priority=1
+
+[PROTOCOL_FEATURE]
+    ipv6_decapsulation_enabled=1
+    ipv6_send_packet_enabled=1
+    tcp_drop_pure_ack_pkt=0
+    tcp_syn_option_parse_enabled=1
+    skip_not_ip_layer_over_eth=0
+    treat_vlan_as_mac_in_mac=0
+    reverse_ethernet_addr=1
 
 [STREAM]
 ### note, stream_id_base_time format is "%Y-%m-%d %H:%M:%S" 

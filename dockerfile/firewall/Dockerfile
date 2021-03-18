@@ -63,6 +63,7 @@ RUN yum makecache \
 
 RUN yum install -y \
   fw_ftp_plug \
+  app_proto_identify \
   epel-release \
   python3 \
   gdb \
@@ -81,6 +82,9 @@ COPY config/sapp_run/etc/entrylist.conf /home/mesasoft/sapp_run/etc/entrylist.co
 COPY config/sapp_run/tsgconf/app_l7_proto_id.conf /home/mesasoft/sapp_run/tsgconf/app_l7_proto_id.conf
 COPY config/sapp_run/plug/business/tsg_conn_sketch/tsg_conn_sketch.inf /home/mesasoft/sapp_run/plug/business/tsg_conn_sketch/tsg_conn_sketch.inf
 COPY config/sapp_run/plug/conflist.inf /home/mesasoft/sapp_run/plug/conflist.inf
+COPY config/sapp_run/tsgconf/tsg_maat.json /home/mesasoft/sapp_run/tsgconf/tsg_maat.json
+COPY config/sapp_run/etc/send_raw_pkt.conf /home/mesasoft/sapp_run/etc/send_raw_pkt.conf
+COPY config/sapp_run/etc/asymmetric_presence_layer.conf /home/mesasoft/sapp_run/etc/asymmetric_presence_layer.conf
 
 WORKDIR /home/mesasoft/sapp_run/
 ENTRYPOINT ["/usr/local/bin/supervisord" ,"-n","-c", "/etc/supervisord.conf"]

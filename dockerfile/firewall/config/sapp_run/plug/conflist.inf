@@ -1,8 +1,8 @@
 [platform]
 #./plug/platform/g_device_plug/g_device_plug.inf
-./plug/platform/wannat/wangw.inf
-./plug/platform/wire_graft/wire_graft.inf
-./plug/platform/http_healthcheck/http_healthcheck.inf
+#./plug/platform/wannat/wangw.inf
+#./plug/platform/wire_graft/wire_graft.inf
+#./plug/platform/http_healthcheck/http_healthcheck.inf
 ./plug/platform/app_proto_identify/app_proto_identify.inf
 ./plug/platform/tsg_master/tsg_master.inf
 
@@ -19,7 +19,7 @@
 [business]
 ./plug/business/tsg_conn_sketch/tsg_conn_sketch.inf
 ./plug/business/capture_packet_plug/capture_packet_plug.inf
-#./plug/business/kni/kni.inf
+./plug/business/kni/kni.inf
 ./plug/business/fw_ssl_plug/fw_ssl_plug.inf
 ./plug/business/fw_http_plug/fw_http_plug.inf
 ./plug/business/fw_dns_plug/fw_dns_plug.inf
