@@ -39,9 +39,10 @@ RUN yum install -y \
   && pip3 install supervisor \
   && yum clean all
 
-COPY tfe-env.sh /opt/tsg/tfe/
-COPY tfe-4.3.30.202103111806030800.ce55dbd-1.el7.x86_64.rpm /root/
-RUN rpm -ivh /root/tfe-4.3.30.202103111806030800.ce55dbd-1.el7.x86_64.rpm && chmod o+x /opt/tsg/tfe/tfe-env.sh
+COPY tfe-4.3.30.202103251012260800.7e54768-1.el7.x86_64.rpm /tmp/
+COPY tfe-debuginfo-4.3.30.202103251012260800.7e54768-1.el7.x86_64.rpm /tmp/
+RUN rpm -ivh /tmp/tfe-4.3.30.202103251012260800.7e54768-1.el7.x86_64.rpm && rpm -ivh /tmp/tfe-debuginfo-4.3.30.202103251012260800.7e54768-1.el7.x86_64.rpm
+
 COPY supervisord.conf /etc/supervisord/
 
 WORKDIR /opt/tsg/tfe/

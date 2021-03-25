@@ -19,7 +19,7 @@ dockerrmf ()
 	docker rm `docker ps --no-trunc -aq`
 }
 
-cp tfe_sysctl.conf /etc/sysctl.d/
+cp 80-tfe.conf /etc/sysctl.d/
 sysctl -p /etc/sysctl.d/tfe_sysctl.conf
 
 #dockerrmf
@@ -76,4 +76,4 @@ echo "================ run 'iptables'      in container ================"
 ip netns exec ${container} iptables -L
 
 echo "================ run 'ping'          in container ================"
-ip netns exec ${container} ping -c10 ${PEER_IP}
+ip netns exec ${container} ping -c5 ${PEER_IP}

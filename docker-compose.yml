@@ -38,4 +38,5 @@ services:
      - ./config/tfe/tfe/future.conf:/opt/tsg/tfe/conf/tfe/future.conf
      - ./config/tfe/tfe/tfe.conf:/opt/tsg/tfe/conf/tfe/tfe.conf
      - ./config/tfe/tfe/zlog.conf:/opt/tsg/tfe/conf/tfe/zlog.conf
+     - ./config/tfe/resource/pangu/pangu_http.json:/opt/tsg/tfe/resource/pangu/pangu_http.json
      - /etc/localtime:/etc/localtime:ro

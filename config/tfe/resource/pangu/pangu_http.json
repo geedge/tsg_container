@@ -1,0 +1,271 @@
+{
+    "compile_table": "PXY_CTRL_COMPILE",
+    "group2compile_table": "GROUP_COMPILE_RELATION",
+    "group2group_table": "GROUP_GROUP_RELATION",
+    "rules": [
+       {
+            "compile_id": 1021,
+            "service": 1,
+            "action": 48,
+            "do_blacklist": 1,
+			"do_log": 1,
+            "effective_range": 0,
+            "user_region": "{\"protocol\":\"http\",\"method\":\"redirect\",\"code\":302,\"to\":\"https://www.jd.com\"}",
+			"is_valid": "yes",
+            "groups": [
+                {
+					"group_name":"http_url",
+					"not_flag":0,
+                    "regions": [
+                        {
+                            "table_name": "TSG_OBJ_URL",
+                            "table_type": "string",
+                            "table_content": {
+                                "keywords": "baidu.com",
+                                "expr_type": "regex",
+                                "match_method": "sub",
+                                "format": "uncase plain"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+		{
+            "compile_id": 1022,
+            "service": 1,
+            "action": 48,
+            "do_blacklist": 1,
+			"do_log": 1,
+            "effective_range": 0,
+            "tags":"{\"tag_sets\":[[{\"tag\":\"device_id\",\"value\":[\"device_3\",\"device_4\"]}]]}",
+            "user_region": "{\"protocol\":\"http\",\"method\":\"redirect\",\"code\":302,\"to\":\"https://www.jd.com\"}",
+            "is_valid": "yes",
+            "groups": [
+                {
+					"group_name":"http_url",
+					"virtual_table":"TSG_FIELD_HTTP_URL",
+					"not_flag":0 
+                }
+            ]
+        },
+		{
+            "compile_id": 1023,
+            "service": 1,
+            "action": 48,
+            "do_blacklist": 1,
+			"do_log": 1,
+            "effective_range": 0,
+            "user_region": "{\"protocol\":\"http\",\"method\":\"replace\",\"rules\":[{\"search_in\":\"http_resp_body\",\"find\":\"邮箱\",\"replace_with\":\"test\"}]}",
+			"is_valid": "yes",
+            "groups": [
+                {
+					"group_name":"http_fqdn",
+					"not_flag":0,
+                    "regions": [
+                        {
+                            "table_name": "TSG_OBJ_FQDN",
+                            "table_type": "string",
+                            "table_content": {
+                                "keywords": "www.126.com",
+                                "expr_type": "regex",
+                                "match_method": "sub",
+                                "format": "uncase plain"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+		{
+            "compile_id": 1024,
+            "service": 1,
+            "action": 48,
+            "do_blacklist": 1,
+						"do_log": 1,
+            "effective_range": 0,
+            "user_region":"{\"protocol\":\"http\",\"method\":\"replace\",\"rules\":[{\"search_in\":\"http_resp_body\",\"find\":\"大师\",\"replace_with\":\"小小\"}]}",
+            "is_valid": "yes",
+            "groups": [
+                {
+					"group_name":"http_fqdn",
+					"virtual_table":"TSG_FIELD_HTTP_HOST",
+					"not_flag":0 
+                }
+            ]
+        },
+		{
+            "compile_id": 1025,
+            "service": 1,
+            "action": 48,
+            "do_blacklist": 1,
+						"do_log": 1,
+            "effective_range": 0,
+            "user_region": "{\"protocol\":\"http\",\"method\":\"replace\",\"rules\":[{\"search_in\":\"http_resp_body\",\"find\":\"会员\",\"replace_with\":\"用户\"}]}",
+            "is_valid": "yes",
+            "groups": [
+                {
+					"group_name":"http_fqdn",
+					"virtual_table":"TSG_FIELD_DOH_QNAME",
+					"not_flag":0 
+                }
+            ]
+        },
+		{
+            "compile_id": 1026,
+            "service": 1,
+            "action": 48,
+            "do_blacklist": 1,
+			"do_log": 1,
+            "effective_range": 0,
+            "user_region": "{\"protocol\":\"http\",\"method\":\"block\",\"code\":403,\"message\":\"error\"}",
+			"is_valid": "yes",
+            "groups": [
+                {
+					"group_name":"http_signature_ua",
+					"not_flag":0,
+                    "regions": [
+                        {
+                            "table_name": "TSG_OBJ_HTTP_SIGNATURE",
+                            "table_type": "expr_plus",
+                            "table_content": {
+								"district": "User-Agent",
+                                "keywords": "Chrome",
+                                "expr_type": "none",
+                                "match_method": "sub",
+                                "format": "uncase plain"
+                            }
+                        }
+                    ]
+                },
+				{
+		            		
+					"group_name":"http_signature_cookie",
+		            "not_flag":0,
+		            "regions": [
+						{
+							"table_name": "TSG_OBJ_HTTP_SIGNATURE",
+							"table_type": "expr_plus",
+		                    "table_content": {
+								"district": "Cookie",
+                                "keywords": "uid=12345678",
+                                "expr_type": "none",
+                                "match_method": "sub",
+                                "format": "uncase plain"
+                            }
+		                }	                    
+		            ]
+		        }      
+            ]
+        },
+		{
+            "compile_id": 1027,
+            "service": 1,
+            "action": 48,
+            "do_blacklist": 1,
+			"do_log": 1,
+            "effective_range": 0,
+            "user_region": "test",
+			"is_valid": "yes",
+            "groups": [
+                {
+					"group_name":"http_url_bing",
+					"not_flag":0,
+                    "regions": [
+                        {
+                            "table_name": "TSG_OBJ_URL",
+                            "table_type": "string",
+                            "table_content": {
+                                "keywords": "bing.com",
+                                "expr_type": "regex",
+                                "match_method": "sub",
+                                "format": "uncase plain"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+		{
+            "compile_id": 1028,
+            "service": 1,
+            "action": 48,
+            "do_blacklist": 1,
+			"do_log": 1,
+            "effective_range": 0,
+            "user_region": "{\"protocol\":\"http\",\"method\":\"block\",\"code\":403,\"message\":\"error\"}",
+            "is_valid": "yes",
+            "groups": [
+                {
+					"group_name":"http_signature_ua",
+					"virtual_table":"TSG_FIELD_HTTP_REQ_HDR",
+					"not_flag":0 
+                },
+				{
+					"group_name":"http_url_bing",
+					"virtual_table":"TSG_FIELD_HTTP_URL",
+					"not_flag":0 
+                },
+				{
+					"group_name":"app_id",
+					"not_flag":0,
+                    "regions": [
+                        {
+                            "table_name": "TSG_OBJ_APP_ID",
+                            "table_type": "string",
+                            "table_content": {
+                                "keywords": "http.",
+                                "expr_type": "regex",
+                                "match_method": "sub",
+                                "format": "uncase plain"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+   ],
+    "plugin_table": [
+        {
+            "table_name": "TSG_PROFILE_RESPONSE_PAGES",
+            "table_content": [
+                "101\t404\thtml\t./resource/pangu/policy_file/404.html\t1"
+            ]
+        },
+        {
+            "table_name": "PXY_PROFILE_HIJACK_FILES",
+            "table_content": [
+                "201\tchakanqi\tchakanqi-947KB.exe\tapplication/x-msdos-program\t./resource/pangu/policy_file/chakanqi-947KB.exe\t1"
+            ]
+        },
+				{
+            "table_name": "PXY_PROFILE_INSERT_SCRIPTS",
+            "table_content": [
+                "301\ttime\tjs\t./resource/pangu/policy_file/time.js\tbefore_page_load\t1"
+            ]
+        },
+		{		
+            "table_name": "TSG_PROFILE_DECRYPTION",
+            "table_content": [
+                "0\ttest\t{\"dynamic_bypass\":{\"ev_cert\":0,\"cert_transparency\":0,\"mutual_authentication\":0,\"cert_pinning\":0,\"protocol_errors\":0,\"trusted_root_cert_is_not_installed_on_client\":0},\"protocol_version\":{\"min\":\"ssl3\",\"max\":\"ssl3\",\"mirror_client\":1,\"allow_http2\":1},\"certificate_checks\":{\"approach\":{\"cn\":1,\"issuer\":1,\"self-signed\":1,\"expiration\":1},\"fail_action\":\"pass-through\"}}\t1",
+                "3\ttest\t{\"dynamic_bypass\":{\"ev_cert\":1,\"cert_transparency\":1,\"mutual_authentication\":1,\"cert_pinning\":1,\"protocol_errors\":1,\"trusted_root_cert_is_not_installed_on_client\":0},\"protocol_version\":{\"min\":\"ssl3\",\"max\":\"tls13\",\"mirror_client\":1,\"allow_http2\":1},\"certificate_checks\":{\"approach\":{\"cn\":1,\"issuer\":1,\"self-signed\":1,\"expiration\":1},\"fail_action\":\"fail-close\"}}\t1",
+                "4\ttest\t{\"dynamic_bypass\":{\"ev_cert\":0,\"cert_transparency\":0,\"mutual_authentication\":0,\"cert_pinning\":0,\"protocol_errors\":0,\"trusted_root_cert_is_not_installed_on_client\":0},\"protocol_version\":{\"min\":\"ssl3\",\"max\":\"ssl3\",\"mirror_client\":0,\"allow_http2\":0},\"certificate_checks\":{\"approach\":{\"cn\":0,\"issuer\":0,\"self-signed\":0,\"expiration\":0},\"fail_action\":\"pass-through\"}}\t1"
+            ]
+        },
+				{
+            "table_name": "TSG_SECURITY_COMPILE",
+            "table_content": [
+                "0\t0\t2\t1\t1\t{}\t{\"protocol\":\"SSL\",\"keyring\":765,\"decryption\":0},\"decrypt_mirror\":{\"enable\":0}}\t1\t2",
+                "7\t0\t2\t1\t1\t{}\t{\"protocol\":\"SSL\",\"keyring\":1,\"decryption\":0},\"decrypt_mirror\":{\"enable\":0}}\t1\t2"
+            ]
+        },
+        {
+            "table_name": "PXY_SSL_FINGERPRINT",
+            "table_content": [
+                "1\t599f223c2c9ee5702f5762913889dc21\t0\t1",
+                "2\teb149984fc9c44d85ed7f12c90d818be\t1\t0",
+                "3\te6573e91e6eb777c0933c5b8f97f10cd\t1\t1"
+            ]
+        }
+    ]
+}
